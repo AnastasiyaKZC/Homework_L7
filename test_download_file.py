@@ -1,3 +1,4 @@
+# скачиваем файлы
 import time
 
 import requests
@@ -30,13 +31,14 @@ def test_text_in_downloaded_file():
 # Вариант1 Кликаем кнопку "Raw" (скачивание по кнопке)
 # browser.element("[data-testid='download-raw-button']").click()
 
-# Вариант2 скачивание по ссылке
-    download_url = browser.element("[data-testid='raw-button']").get(query.attribute("href"))
-    print(download_url)
-    content = requests.get(url=download_url).content
-    with open("tmp/readme2.rst", 'wb') as file:
+# Вариант2 скачивание по ссылке:
+
+    download_url = browser.element("[data-testid='raw-button']").get(query.attribute("href")) #Получение ссылки на скачивание файла
+    print(download_url) #Вывод ссылки в консоль
+    content = requests.get(url=download_url).content #Запрос содержимого файла по ссылке
+    with open("tmp/readme2.rst", 'wb') as file:#Сохранение файла локально
         file.write(content)
-    with open("tmp/readme2.rst") as file:
+    with open("tmp/readme2.rst") as file: #Чтение файла и проверка содержимого
         file_content_str = file.read()
         assert "test_answer" in file_content_str
 
